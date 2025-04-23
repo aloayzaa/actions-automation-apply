@@ -23,8 +23,8 @@ jobs:
         env:
           TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
           RUN_URL: ${{ github.event.inputs.run_url }}
-        run: python scripts/validate_and_apply.py
-        
+        run: python script/validate_and_apply.py
+
       - name: Upload plan summary as artifact
         uses: actions/upload-artifact@v4
         with:
