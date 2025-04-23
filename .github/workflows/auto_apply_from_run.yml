@@ -1,0 +1,26 @@
+name: Auto Apply from Terraform Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_url:
+        description: 'Terraform Run URL (e.g. https://app.terraform.io/...)'
+        required: true
+
+jobs:
+  auto-apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests tabulate
+
+      - name: Run validation and apply
+        env:
+          TFC_TOKEN: ${{ secrets.TFC_TOKEN }}
+          RUN_URL: ${{ github.event.inputs.run_url }}
+        run: python scripts/validate_and_apply.py
