@@ -95,10 +95,10 @@ def analyze_plan(plan_json):
 
 def apply_run(run_id):
     response = requests.post(f"{TFC_API}/runs/{run_id}/actions/apply", headers=HEADERS)
-    if response.status_code == 200:
+    if response.status_code in [200, 201, 202]:
         print("✅ Apply iniciado correctamente.")
     else:
-        print(f"❌ Error al iniciar apply: {response.text}")
+        print(f"❌ Error al iniciar apply. Código: {response.status_code}, Respuesta: {response.text}")
         exit(1)
 
 if __name__ == "__main__":
